@@ -1,40 +1,43 @@
 from flask import jsonify, request
 from app.views import api
+from app.models import User
+from app import db
+from app.schemas import UserSchema
+from marshmallow import ValidationError
 
-users = {}
+user_schema = UserSchema()
 
 @api.route('/user/<int:user_id>', methods=['GET'])
 def get_user(user_id):
-    user = users.get(user_id)
+    user = User.query.get(user_id)
     if user is None:
         return jsonify({'error': 'User not found'}), 404
-    return jsonify(user)
+    return jsonify(user_schema.dump(user))
 
 @api.route('/user/<int:user_id>', methods=['DELETE'])
 def delete_user(user_id):
-    if user_id not in users:
+    user = User.query.get(user_id)
+    if user is None:
         return jsonify({'error': 'User not found'}), 404
-    user = users[user_id]
-    del users[user_id]
-    return jsonify(user)
+    
+    db.session.delete(user)
+    db.session.commit()
+    return jsonify(user_schema.dump(user))
 
 @api.route('/user', methods=['POST'])
 def create_user():
-    data = request.get_json()
+    try:
+        data = user_schema.load(request.get_json())
+    except ValidationError as err:
+        return jsonify({'error': err.messages}), 400
     
-    if not data or 'name' not in data:
-        return jsonify({'error': 'Name is required'}), 400
+    user = User(name=data['name'])
+    db.session.add(user)
+    db.session.commit()
     
-    new_id = max(users.keys()) + 1 if users else 1
-    
-    user = {
-        'id': new_id,
-        'name': data['name']
-    }
-    users[new_id] = user
-    
-    return jsonify(user), 201
+    return jsonify(user_schema.dump(user)), 201
 
 @api.route('/users', methods=['GET'])
 def get_users():
-    return jsonify(list(users.values())) 
+    users = User.query.all()
+    return jsonify(user_schema.dump(users, many=True)) 

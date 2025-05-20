@@ -1,5 +1,6 @@
 from datetime import datetime
 from app import db
+from datetime import timezone
 
 class User(db.Model):
     __tablename__ = 'users'
@@ -10,3 +11,4 @@ class User(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.now(timezone.utc), onupdate=datetime.now(timezone.utc))
 
     records = db.relationship('Record', back_populates='user', cascade='all, delete-orphan')
+    account = db.relationship('Account', back_populates='user', uselist=False, cascade='all, delete-orphan')
