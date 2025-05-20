@@ -8,6 +8,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
+RUN chmod +x /app/docker-entrypoint.sh
+
 EXPOSE 5000
 
-CMD ["flask", "run", "--host=0.0.0.0"] 
+CMD ["/app/docker-entrypoint.sh"] 
