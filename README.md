@@ -1,5 +1,8 @@
 # backend-labs
 
+## additional task variant
+IM-24 => 24 % 3 = 0 => Облік доходів
+
 ## api
 healthcheck available at /health route
 
