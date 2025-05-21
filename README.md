@@ -20,3 +20,6 @@ healthcheck available at /health route
 
 ### docker compose
 - `docker compose up --build`
+
+## deployed instance
+https://backend-labs-75of.onrender.com

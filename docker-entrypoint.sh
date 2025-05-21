@@ -19,7 +19,7 @@ wait_for_db
 
 echo "Running database migrations..."
 rm -rf migrations/
-PGPASSWORD=${POSTGRES_PASSWORD} psql -h ${POSTGRES_HOST} -p ${POSTGRES_PORT} -U ${POSTGRES_USER} -d ${POSTGRES_DB} -c "DELETE FROM alembic_version;"
+PGPASSWORD=${POSTGRES_PASSWORD} psql -h ${POSTGRES_HOST} -p ${POSTGRES_PORT} -U ${POSTGRES_USER} -d ${POSTGRES_DB} -c "DELETE FROM alembic_version IF EXISTS;"
 flask db init
 flask db migrate -m "Initial migration"
 flask db upgrade
