@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "1f128179-fc73-4494-b057-bdd91e862937",
-		"name": "lab_2_3",
+		"_postman_id": "f9cb4571-4a8a-489d-af92-34021ea93010",
+		"name": "lab_4",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "32170697",
-		"_collection_link": "https://www.postman.com/anasteishat/workspace/backend-labs/collection/32170697-1f128179-fc73-4494-b057-bdd91e862937?action=share&source=collection_link&creator=32170697"
+		"_collection_link": "https://www.postman.com/anasteishat/workspace/backend-labs/collection/32170697-f9cb4571-4a8a-489d-af92-34021ea93010?action=share&source=collection_link&creator=32170697"
 	},
 	"item": [
 		{
@@ -48,6 +48,16 @@
 				{
 					"name": "user",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
@@ -64,13 +74,16 @@
 					"response": []
 				},
 				{
-					"name": "user",
+					"name": "register",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"{{name}}\"\n}",
+							"raw": "{\n    \"name\": \"{{name}}\",\n    \"password\": \"{{password}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -78,12 +91,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{domain}}/user",
+							"raw": "{{domain}}/register",
 							"host": [
 								"{{domain}}"
 							],
 							"path": [
-								"user"
+								"register"
 							]
 						}
 					},
@@ -115,6 +128,16 @@
 				{
 					"name": "category",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
@@ -133,6 +156,16 @@
 				{
 					"name": "category",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -205,6 +238,16 @@
 				{
 					"name": "record",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
@@ -223,6 +266,16 @@
 				{
 					"name": "record",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -272,6 +325,16 @@
 				{
 					"name": "account",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
@@ -290,6 +353,16 @@
 				{
 					"name": "account",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -316,6 +389,16 @@
 				{
 					"name": "balance",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
