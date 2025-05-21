@@ -22,4 +22,4 @@ healthcheck available at /health route
 - `docker compose up --build`
 
 ## deployed instance
-https://backend-labs-75of.onrender.com
+https://backend-labs-1-r11s.onrender.com
