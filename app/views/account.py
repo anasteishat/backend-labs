@@ -14,8 +14,8 @@ def get_account(account_id):
         return jsonify({'error': 'Account not found'}), 404
     return jsonify(account_schema.dump(account))
 
-@jwt_required()
 @api.route('/account', methods=['POST'])
+@jwt_required()
 def create_account():
     try:
         data = account_schema.load(request.get_json())
@@ -42,8 +42,8 @@ def create_account():
     
     return jsonify(account_schema.dump(account)), 201
 
-@jwt_required()
 @api.route('/account/<int:account_id>/balance', methods=['PUT'])
+@jwt_required()
 def update_balance(account_id):
     try:
         data = balance_update_schema.load(request.get_json())
@@ -65,8 +65,8 @@ def update_balance(account_id):
 
     return jsonify(account_schema.dump(account))
 
-@jwt_required()
 @api.route('/account/<int:account_id>', methods=['DELETE'])
+@jwt_required()
 def delete_account(account_id):
     account = Account.query.get(account_id)
     if account is None:

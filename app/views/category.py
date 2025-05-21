@@ -4,6 +4,7 @@ from app.models import Category
 from app import db
 from app.schemas import CategorySchema
 from marshmallow import ValidationError
+from flask_jwt_extended import jwt_required
 
 category_schema = CategorySchema()
 
@@ -14,8 +15,8 @@ def get_category(category_id):
         return jsonify({'error': 'Category not found'}), 404
     return jsonify(category_schema.dump(category))
 
-jwt_required()
 @api.route('/category/<int:category_id>', methods=['DELETE'])
+@jwt_required()
 def delete_category(category_id):
     category = Category.query.get(category_id)
     if category is None:
@@ -25,8 +26,8 @@ def delete_category(category_id):
     db.session.commit()
     return jsonify(category_schema.dump(category))
 
-jwt_required()
 @api.route('/category', methods=['POST'])
+@jwt_required()
 def create_category():
     try:
         data = category_schema.load(request.get_json())
