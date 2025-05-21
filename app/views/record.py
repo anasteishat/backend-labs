@@ -6,6 +6,7 @@ from app import db
 from app.schemas import RecordSchema
 from marshmallow import ValidationError
 from sqlalchemy.exc import IntegrityError
+from flask_jwt_extended import jwt_required
 
 record_schema = RecordSchema()
 
@@ -16,6 +17,7 @@ def get_record(record_id):
         return jsonify({'error': 'Record not found'}), 404
     return jsonify(record_schema.dump(record))
 
+@jwt_required()
 @api.route('/record/<int:record_id>', methods=['DELETE'])
 def delete_record(record_id):
     record = Record.query.get(record_id)
@@ -26,6 +28,7 @@ def delete_record(record_id):
     db.session.commit()
     return jsonify(record_schema.dump(record))
 
+@jwt_required()
 @api.route('/record', methods=['POST'])
 def create_record():
     try:

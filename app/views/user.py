@@ -6,9 +6,11 @@ from app.schemas import UserSchema
 from marshmallow import ValidationError
 from passlib.hash import pbkdf2_sha256
 from flask_jwt_extended import create_access_token
+from flask_jwt_extended import jwt_required
 
 user_schema = UserSchema()
 
+@jwt_required()
 @api.route('/register', methods=['POST'])
 def register_user():
     try:
@@ -29,6 +31,7 @@ def register_user():
     
     return jsonify(user_schema.dump(user)), 201
 
+@jwt_required()
 @api.route('/login', methods=['POST'])
 def login_user():
     try:
@@ -50,6 +53,7 @@ def get_user(user_id):
         return jsonify({'error': 'User not found'}), 404
     return jsonify(user_schema.dump(user))
 
+@jwt_required()
 @api.route('/user/<int:user_id>', methods=['DELETE'])
 def delete_user(user_id):
     user = User.query.get(user_id)

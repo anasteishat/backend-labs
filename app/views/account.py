@@ -5,6 +5,7 @@ from app import db
 from app.schemas import account_schema, balance_update_schema
 from marshmallow import ValidationError
 from sqlalchemy.exc import IntegrityError
+from flask_jwt_extended import jwt_required
 
 @api.route('/account/<int:account_id>', methods=['GET'])
 def get_account(account_id):
@@ -13,6 +14,7 @@ def get_account(account_id):
         return jsonify({'error': 'Account not found'}), 404
     return jsonify(account_schema.dump(account))
 
+@jwt_required()
 @api.route('/account', methods=['POST'])
 def create_account():
     try:
@@ -40,6 +42,7 @@ def create_account():
     
     return jsonify(account_schema.dump(account)), 201
 
+@jwt_required()
 @api.route('/account/<int:account_id>/balance', methods=['PUT'])
 def update_balance(account_id):
     try:
@@ -62,6 +65,7 @@ def update_balance(account_id):
 
     return jsonify(account_schema.dump(account))
 
+@jwt_required()
 @api.route('/account/<int:account_id>', methods=['DELETE'])
 def delete_account(account_id):
     account = Account.query.get(account_id)

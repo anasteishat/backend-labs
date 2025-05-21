@@ -14,6 +14,7 @@ def get_category(category_id):
         return jsonify({'error': 'Category not found'}), 404
     return jsonify(category_schema.dump(category))
 
+jwt_required()
 @api.route('/category/<int:category_id>', methods=['DELETE'])
 def delete_category(category_id):
     category = Category.query.get(category_id)
@@ -24,6 +25,7 @@ def delete_category(category_id):
     db.session.commit()
     return jsonify(category_schema.dump(category))
 
+jwt_required()
 @api.route('/category', methods=['POST'])
 def create_category():
     try:
